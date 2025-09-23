@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import RouteSelector from "@/components/RouteSelector";
 import RouteResults from "@/components/RouteResults";
 import LiveMap from "@/components/LiveMap";
+import Footer from "@/components/Footer";
 
 type ViewState = 'search' | 'results' | 'map';
 
@@ -117,6 +118,8 @@ export default function Home() {
           </div>
         )}
       </main>
+      
+      <Footer />
     </div>
   );
 }
