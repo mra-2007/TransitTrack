@@ -101,7 +101,23 @@ export default function RouteSelector({ onRouteSearch }: RouteSelectorProps) {
         console.log('User location detected:', { lat: latitude, lng: longitude });
       },
       (error) => {
-        setLocationError("Unable to retrieve your location. Please select manually.");
+        let errorMessage = "Unable to retrieve your location. Please select manually.";
+        
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = "Location access denied. You can enable it in your browser settings or select locations manually below.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = "Location information unavailable. Please select locations manually.";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Location request timed out. Please try again or select manually.";
+            break;
+          default:
+            errorMessage = "Unable to retrieve your location. Please select manually.";
+        }
+        
+        setLocationError(errorMessage);
         setIsLoadingLocation(false);
         console.error('Geolocation error:', error);
       },
